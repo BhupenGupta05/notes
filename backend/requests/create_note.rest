@@ -1,0 +1,7 @@
+POST http://localhost:3001/api/data
+Content-Type: application/json
+
+{
+    "content": "React is the best framework",
+    "important": true
+}
