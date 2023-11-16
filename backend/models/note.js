@@ -1,4 +1,4 @@
-import mongoose from 'mongoose'
+const mongoose = require('mongoose');
 
 //Since we are validating the content here, there is no need to check for it in the POST request
 const noteSchema = new mongoose.Schema({
@@ -20,6 +20,7 @@ noteSchema.set('toJSON', {
   }
 })
 
-const Note = mongoose.model('Note', noteSchema)
+const Note = mongoose.model('Note', noteSchema);
 
-export default Note
+module.exports = Note;
+

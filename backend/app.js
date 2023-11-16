@@ -1,11 +1,11 @@
-import config from './utils/config.js'
-import logger from './utils/logger.js'
-import middleware from './utils/middleware.js'
-import express from 'express'
-const app = express()
-import cors from 'cors'
-import mongoose from 'mongoose'
-import notesRouter from './controllers/notes.js'
+const config = require('./utils/config.js');
+const logger = require('./utils/logger.js');
+const { requestLogger,unknownEndpoint,errorHandler } = require('./utils/middleware.js')
+const express = require('express');
+const app = express();
+const cors = require('cors');
+const mongoose = require('mongoose');
+const notesRouter = require('./controllers/notes.js')
 
 
 logger.info('connecting to ',config.MONGODB_URL)
@@ -23,11 +23,11 @@ mongoose.connect(config.MONGODB_URL)
 app.use(cors())
 app.use(express.static('build'))
 app.use(express.json())
-app.use(middleware.requestLogger)
+app.use(requestLogger)
 
 app.use('/api/data', notesRouter)
 
-app.use(middleware.unknownEndpoint)
-app.use(middleware.errorHandler)
+app.use(unknownEndpoint)
+app.use(errorHandler)
 
-export default app
+module.exports = app
