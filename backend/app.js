@@ -1,5 +1,6 @@
 const config = require('./utils/config.js');
 const logger = require('./utils/logger.js');
+require('express-async-errors')
 const { requestLogger,unknownEndpoint,errorHandler } = require('./utils/middleware.js')
 const express = require('express');
 const app = express();
