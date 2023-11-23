@@ -10,14 +10,11 @@ const Note = require('../models/note.js')
 
 beforeEach(async () => {
   await Note.deleteMany({})
-  console.log('cleared');
 
-  helper.initialNotes.forEach(async (note) => {
-    let noteObject = new Note(note)
-    await noteObject.save()
-    console.log('saved');
-  })
-  console.log('done');
+  const noteObjects = helper.initialNotes.map((note) => new Note(note))
+
+  const promiseArray = noteObjects.map((note) => note.save())
+  await Promise.all(promiseArray)
 })
 
 
