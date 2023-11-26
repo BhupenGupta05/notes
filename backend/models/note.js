@@ -8,10 +8,6 @@ const noteSchema = new mongoose.Schema({
     required: true
   },
   important: Boolean,
-  user: {    
-    type: mongoose.Schema.Types.ObjectId,    
-    ref: 'User'  
-  }
 })
 
 //FORMAT THE OBJECTS RETURNED BY THE DATABASE
@@ -24,7 +20,6 @@ noteSchema.set('toJSON', {
   }
 })
 
-const Note = mongoose.model('Note', noteSchema);
 
-module.exports = Note;
+module.exports = mongoose.model('Note', noteSchema)
 
