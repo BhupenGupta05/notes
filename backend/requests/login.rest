@@ -1,0 +1,8 @@
+POST http://localhost:3001/api/data
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkJodXBlbjA1IiwiaWQiOiI2NTVmMmRlMmM3MzRhODUxOGY3NGZmMjIiLCJpYXQiOjE3MDExMDE1ODN9.1qCPV9rRo0sfoTZLbWLK3YJN9Pn3qM9r1sKywdFOagk
+
+{
+    "content": "Single page app uses token",
+    "important": true
+}

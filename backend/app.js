@@ -7,7 +7,8 @@ const app = express();
 const cors = require('cors');
 const mongoose = require('mongoose');
 const notesRouter = require('./controllers/notes.js')
-const usersRouter = require('./controllers/users')
+const usersRouter = require('./controllers/users.js')
+const loginRouter = require('./controllers/login.js')
 
 
 logger.info('connecting to ',config.MONGODB_URL)
@@ -29,6 +30,7 @@ app.use(requestLogger)
 
 app.use('/api/data', notesRouter)
 app.use('/api/users', usersRouter)
+app.use('/api/login', loginRouter)
 
 app.use(unknownEndpoint)
 app.use(errorHandler)
