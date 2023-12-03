@@ -37,6 +37,7 @@ const App = () => {
 
     try {
       const user = await loginService.login({username, password})
+      noteService.setToken(user.token)
       setUser(user)
       setUsername('')
       setPassword('')
@@ -128,37 +129,39 @@ const App = () => {
     // })
   }
 
-  const loginForm = () => {
+  const loginForm = () => (
     <form onSubmit={handleLogin}>
         <div>
           Username : 
-          <input type="text" name="Username" value={username} onChange={(target) => setUsername(target.value)} className="bg-slate-200 px-6 py-1 rounded-sm outline-none my-1" />
+          <input type="text" name="Username" value={username} onChange={({target}) => setUsername(target.value)} className="bg-slate-200 px-6 py-1 rounded-sm outline-none my-1" />
         </div>
 
         <div>
           Password : 
-          <input type="text" name="Password" value={password} onChange={(target) => setPassword(target.value)} className="bg-slate-200 px-6 py-1 rounded-sm outline-none my-1" />
+          <input type="text" name="Password" value={password} onChange={({target}) => setPassword(target.value)} className="bg-slate-200 px-6 py-1 rounded-sm outline-none my-1" />
         </div>
         <button type="submit" className="mx-2 bg-pink-400 rounded-sm px-4 py-1 hover:bg-pink-300">Login</button>
       </form>
-  }
+  )
 
-  const noteForm = () => {
+  const noteForm = () => (
     <form onSubmit={addNote} className="mx-2">
         <input type="text" value={newNote} onChange={handleInputChange} className="bg-slate-200 px-6 py-1 rounded-sm outline-none"/>
         <button type="submit" className="mx-2 bg-blue-500 rounded-sm px-4 py-1 hover:bg-blue-600">Save</button>
       </form>
-  }
+  )
 
   return (
     <div>
       <h1 className="text-4xl font-semibold my-2 mx-4 mb-4">Notes</h1>
       <Notification message={errorMessage} />
 
-      {user === null && loginForm() }
-      {user !== null && <div>
+      {!user && loginForm()}
+      {user && <div>
         <p>{user.name} logged in</p>
-        {noteForm()}</div>}
+        {noteForm()}
+      </div>
+      }
 
       <div>
         <button onClick={() => setShowAll(!showAll)} className="bg-blue-400 px-4 py-1 mx-2 rounded-sm">Show {showAll ? 'important' : 'all'}</button>
