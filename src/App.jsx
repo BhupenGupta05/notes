@@ -27,13 +27,12 @@ const App = () => {
   //   }
   // ]
 
-  const[notes,setNotes] = useState([])
-  const[newNote,setNewNote] = useState('')
-  const[showAll, setShowAll] = useState(true)
+  const [notes,setNotes] = useState([])
+  const [showAll, setShowAll] = useState(true)
   const [errorMessage, setErrorMessage] = useState(null)
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
-  const[user, setUser] = useState(null)
+  const [user, setUser] = useState(null)
   const [loginVisible, setLoginVisible] = useState(false)
 
   const handleLogin = async (e) => {
@@ -85,24 +84,11 @@ const App = () => {
 
   const notesToShow = showAll ? notes : notes.filter(note => note.important === true)
 
-  const handleInputChange = (e) => {
-    console.log(e.target.value);
-    setNewNote(e.target.value)
-  }
-
-  const addNote = (e) => {
-    e.preventDefault()
-    console.log(e.target);
-
-    const noteObj = {
-      content: newNote,
-      important: Math.random() < 0.5,
-    }
+  const addNote = (noteObj) => {
     noteService
     .create(noteObj)
     .then(returnedNote => {
       setNotes(notes.concat(returnedNote))
-      setNewNote('')
     })
 
     // axios
@@ -176,10 +162,7 @@ const App = () => {
 
   const noteForm = () => (
     <Togglable buttonLabel='new note'>
-      <NoteForm 
-      onSubmit={addNote}
-      handleChange={handleInputChange}
-      value={newNote}/>
+      <NoteForm createNote={addNote}/>
     </Togglable>
   )
 
