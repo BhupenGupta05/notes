@@ -30,10 +30,9 @@ const App = () => {
   const [notes,setNotes] = useState([])
   const [showAll, setShowAll] = useState(true)
   const [errorMessage, setErrorMessage] = useState(null)
+  const [user, setUser] = useState(null)
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
-  const [user, setUser] = useState(null)
-  const [loginVisible, setLoginVisible] = useState(false)
 
   const handleLogin = async (e) => {
     e.preventDefault()
@@ -136,29 +135,15 @@ const App = () => {
     setUser(null)
   }
 
-  const loginForm = () => {
-    const hideWhenVisible = { display: loginVisible ? 'none' : '' }
-    const showWhenVisible = { display: loginVisible ? '' : 'none' }
-
-    return (
-      <div>
-        <div style={hideWhenVisible}>
-          <button onClick={() => setLoginVisible(true)}>log in</button>
-        </div>
-        <div style={showWhenVisible}>
-        <LoginForm
-            username={username}
-            password={password}
-            handleUsernameChange={({ target }) => setUsername(target.value)}
-            handlePasswordChange={({ target }) => setPassword(target.value)}
-            handleSubmit={handleLogin}
-          />
-          
-          <button onClick={() => setLoginVisible(false)}>cancel</button>
-        </div>
-      </div>
-    )
-  }
+  const loginForm = () => (
+    <Togglable buttonLabel='login'>
+      <LoginForm handleSubmit={handleLogin}
+      username={username}
+      password={password}
+      setUsername={setUsername}
+      setPassword={setPassword}/>
+    </Togglable>
+  )
 
   const noteForm = () => (
     <Togglable buttonLabel='new note'>
