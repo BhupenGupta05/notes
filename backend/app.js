@@ -1,11 +1,11 @@
-const config = require('./utils/config.js');
-const logger = require('./utils/logger.js');
+const config = require('./utils/config.js')
+const logger = require('./utils/logger.js')
 require('express-async-errors')
 const { requestLogger,unknownEndpoint,errorHandler } = require('./utils/middleware.js')
-const express = require('express');
-const app = express();
-const cors = require('cors');
-const mongoose = require('mongoose');
+const express = require('express')
+const app = express()
+const cors = require('cors')
+const mongoose = require('mongoose')
 const notesRouter = require('./controllers/notes.js')
 const usersRouter = require('./controllers/users.js')
 const loginRouter = require('./controllers/login.js')

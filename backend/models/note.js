@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require('mongoose')
 
 //Since we are validating the content here, there is no need to check for it in the POST request
 const noteSchema = new mongoose.Schema({
@@ -8,9 +8,9 @@ const noteSchema = new mongoose.Schema({
     required: true
   },
   important: Boolean,
-  user: {    
-    type: mongoose.Schema.Types.ObjectId,    
-    ref: 'User'  
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
   }
 })
 

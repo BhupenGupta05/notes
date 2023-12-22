@@ -14,7 +14,7 @@ const getTokenFrom = request => {
 
 //FETCH OPERATION
 notesRouter.get('/', async (request, response) => {
-  const notes = await Note.find({}).populate('user', {username: 1, name: 1})
+  const notes = await Note.find({}).populate('user', { username: 1, name: 1 })
   response.json(notes)
 })
 
@@ -24,7 +24,7 @@ notesRouter.post('/', async (request, response) => {
 
   const decodedToken = jwt.verify(getTokenFrom(request), process.env.SECRET)
   if(!decodedToken.id){
-    return response.status(401).json({error: 'token invalid'})
+    return response.status(401).json({ error: 'token invalid' })
   }
   const user = await User.findById(decodedToken.id)
 
@@ -37,7 +37,7 @@ notesRouter.post('/', async (request, response) => {
   const savedNote = await note.save()
   user.notes = user.notes.concat(savedNote._id)
   await user.save()
-  
+
   response.status(201).json(savedNote)
 })
 
