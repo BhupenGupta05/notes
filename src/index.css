@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer utilities {
+    .error {
+        @apply bg-slate-300 text-lg border border-solid rounded-md p-2 mb-3 text-red-500
+    }
+}
