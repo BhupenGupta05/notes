@@ -1,14 +1,17 @@
 describe('Note app', function() {
   beforeEach(function() {    
-    cy.visit('http://localhost:5173')
+    cy.request('POST', `${Cypress.env('BACKEND')}/testing/reset`)    
+    const user = {
+      name: 'Superuser',
+      username: 'root',
+      password: 'Jelly05fi$h'
+    }
+    cy.request('POST', `${Cypress.env('BACKEND')}/users`, user)    
+    cy.visit('')
   })
 
   it('front page can be opened', function() {
     cy.contains('Notes')
-  })
-
-  it('login form can be opened', function() {
-    cy.contains('login').click()
   })
 
   it('user can login', function () {
@@ -20,7 +23,7 @@ describe('Note app', function() {
     cy.contains('Superuser logged in')
   })
 
-  it.only('login fails with wrong password', function() {
+  it('login fails with wrong password', function() {
     cy.contains('login').click()
     cy.get('#username').type('root')
     cy.get('#password').type('wrong')
@@ -31,11 +34,8 @@ describe('Note app', function() {
   })
 
   describe('when logged in', function() {    
-    beforeEach(function() {      
-      cy.contains('login').click()      
-      cy.get('input:first').type('root')      
-      cy.get('input:last').type('Jelly05fi$h')      
-      cy.get('#login-button').click()    
+    beforeEach(function() {    
+      cy.login({ username: 'root', password: 'Jelly05fi$h' })   
     })
 
     it('a new note can be created', function() {      
@@ -44,5 +44,19 @@ describe('Note app', function() {
       cy.contains('Save').click()      
       cy.contains('a note created by cypress')    
     })  
+  })
+
+  describe('and a note exists', function () {
+    beforeEach(function () {
+      cy.createNote({ content: 'first note', important: false })
+      cy.createNote({ content: 'second note', important: false })
+      cy.createNote({ content: 'third note', important: false })
+    })
+
+    it.only('one of those can be made important', function () {
+      cy.contains('second note').parent().find('button').as('theButton')
+      cy.get('@theButton').click()
+      cy.get('@theButton').should('contain', 'make not important')
+    })
   })
 })

@@ -9,6 +9,7 @@ const mongoose = require('mongoose')
 const notesRouter = require('./controllers/notes.js')
 const usersRouter = require('./controllers/users.js')
 const loginRouter = require('./controllers/login.js')
+const testingRouter = require('./controllers/testing.js')
 
 
 logger.info('connecting to ',config.MONGODB_URL)
